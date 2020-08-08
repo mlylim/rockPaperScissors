@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+
+}
+
+body{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-image: url('wrest.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  font-size: 40px;
+  -webkit-text-stroke: 1px black;
+	-webkit-text-fill-color: white;
+
+}
+#title{
+  text-align: center;
+  color: black;
+	font-size: 60px;
+	-webkit-text-stroke: 3px black;
+	-webkit-text-fill-color: white;
+}
+
+.column {
+  float:left;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.left, .right {
+  width: 25%;
+  text-justify: center;}
+  
+
+.middle {
+  width: 16.6%;
+  margin: 0 auto;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+img:hover
+{
+     opacity: 0.5;
+}
+
+</style>
+</head>
+<body>
+
+<h1 id = "title">Rock Paper Scissors!</h1>
+
+<div class="row">
+  <div id = "leftcol" class="column left" >
+    <p id = "you">You: </p>
+
+
+  </div>
+  <div  class="column middle">
+   
+        <img src="rock.png" width=150px height = 150px alt="" id = "roc"/>
+
+  </div>
+
+  <div  class="column middle">
+
+        <img src="paper.png"  alt="" id = "pap"/> </div>
+        <div  class="column middle">
+
+        <img src="scissors.png"  alt="" id = "sci" />
+
+      <p id = "score"> </p>
+  </div>
+
+  <div id = "rightcol" class="column right">
+    <p id = "comp">Computer: </p>
+  </div>
+</div>
+<script>
+
+
+       
+
+  window.onload = function() {
+      document.getElementById("sci").onclick = function() {
+        playRound("scissors")};
+        document.getElementById("roc").onclick = function() {
+        playRound("rock")};
+        document.getElementById("pap").onclick = function() {
+        playRound("paper")};
+
+   };
+
+
+    function computerPlay(){
+        x = Math.floor(Math.random()*(3-1+1))+1;
+        if (x === 1){
+          return 'rock';
+        }
+        else if (x === 2){
+          return 'paper';
+        }
+        else return 'scissors';
+      }
+    var cCount = 0;
+    var pCount = 0;
+
+    function clearBoard()
+    {
+     var leftColumn= document.getElementById('leftcol')
+     leftColumn.removeChild(leftColumn.lastChild)
+
+     var rightColumn= document.getElementById('rightcol')
+     rightColumn.removeChild(rightColumn.lastChild)
+    }
+
+    function playRound(playerSelection){
+
+      clearBoard()
+
+        const pWin = 'You (the player) win!'
+        const cWin = 'The computer wins!'
+        let update = '';
+        final = '';
+        let difference = 0;
+        computerSelection = computerPlay();
+
+    
+        var imgP = document.createElement('img'); 
+
+        var imgC = document.createElement('img');
+       
+
+        if (playerSelection === 'rock')
+        {
+          imgP.src = 'rock.png';
+        }
+        else if (playerSelection === 'scissors')
+        {
+          imgP.src = 'scissors.png'
+        }
+        else
+        {
+          imgP.src = 'paper.png'
+        }
+        
+        if (computerSelection === 'scissors')
+        {
+          imgC.src = 'scissors.png'
+        }
+        else if (computerSelection === 'paper')
+        {
+          imgC.src = 'paper.png'
+        }
+        else 
+        {
+          imgC.src = "rock.png"
+        }
+
+        imgP.width = "150";
+        imgC.width = "150";
+
+        document.getElementById('leftcol').appendChild(imgP); 
+         document.getElementById('rightcol').appendChild(imgC); 
+
+
+
+       if (playerSelection === 'rock' & computerSelection ==='scissors')
+        {
+          
+          final = pWin;
+          pCount += 1
+        }
+        else if (playerSelection ==='scissors' & computerSelection =='paper')
+        {
+        final = pWin;
+        pCount += 1
+
+        }
+        else if (playerSelection ==='paper' & computerSelection =='rock')
+        {
+        final = pWin;
+        pCount += 1
+
+        }
+        else 
+        {
+        final = cWin;
+        cScore = 'true'
+        cCount += 1
+        }
+        
+
+        if (cCount > pCount)
+        {
+          difference = cCount - pCount;
+          update = ' Computer is ahead by ' + difference + ', time to catch up!'
+        }
+        else if (cCount < pCount)
+        {
+          difference = -(cCount - pCount);
+          update = ' You are ahead by ' + difference + ', nice job!'
+        }
+        else if (cCount ==  pCount)
+        {
+          difference = cCount;
+          update = ` It\'s a tie at ${difference}-${difference}`
+                  }
+      
+      
+        document.getElementById('you').innerHTML = "You: "+ pCount;
+        document.getElementById('comp').innerHTML = "Computer: "+ cCount;
+
+
+
+
+
+      }
+  const buttons = document.querySelectorAll('button')
+  buttons.forEach((button)=> {
+    button.addEventListener('click',function(){playRound(button.id)})
+    
+    })
+
+    
+  </script>
+</body>
+</html>
+
