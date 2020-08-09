@@ -82,10 +82,13 @@ function playRound(playerSelection) {
   else if (playerSelection === 'paper' & computerSelection == 'rock') {
     pCount += 1
   }
-  else {
-    cCount += 1
+  else if (playerSelection == computerSelection) {
+    cCount += 0
+    pCount += 0
   }
-
+  else{
+  cCount += 1
+}  
   document.getElementById('you').innerHTML = "You: " + pCount;
   document.getElementById('comp').innerHTML = "Computer: " + cCount;
 }
